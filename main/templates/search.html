@@ -1,0 +1,58 @@
+<!-- main/search.html -->
+{% extends 'shablonCss11.html' %}
+{% load static %}
+
+{% block title %}Поиск по клубам{% endblock %}
+
+{% block content %}
+<body class="GlavnayaBody">
+	<header>
+	
+		<img src="{% static 'image/LogoPridict1.png' %}" alt="Основной Логотип" class="main-logo">
+	
+		<form method="get" action="{% url 'search' %}" class="unique-search-bar">
+			{% csrf_token %}
+			<input type="search" list="clubs" id="Poisk" name="query" class="form-control small-search" placeholder="Поиск">
+			<button class="btn btn-dark small-button" type="submit">Искать</button>
+			<datalist id="clubs">
+				<option value="Hunters"></option>
+				<option value="Remus"></option>
+				<option value="Lumos"></option>
+				<option value="Cheerleaders"></option>
+				<option value="Sport life"></option>
+				<option value="MOF"></option>
+				<option value="DAT"></option>
+				<option value="DOS"></option>
+				<option value="Mafia"></option>
+			</datalist>
+	
+			
+		</form>
+	</header>
+	<div class="cards-container">
+		{% if PostNews %}
+		{% for i in PostNews %}
+		<a href="{% url 'news_datail' i.id %}">
+			<div class="card">
+				<div class="card-header">
+					{{ i.ClubName }}
+					<div>{{ i.NewsName }}</div>
+				</div>
+				<div class="card-image">
+					<img src="{{ i.ImgNews.url }}" alt="{{ i.ClubName }}" alt="News Logo">
+				</div>
+				<div class="card-footer">
+					{{ i.Date }}
+					<div>{{ i.Anons }}</div>
+				</div>
+	
+			</div>
+		</a>
+		{% endfor %}
+		{% else %}
+		<p>У вас нет записей</p>
+		{% endif %}
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}

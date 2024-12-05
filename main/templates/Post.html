@@ -1,0 +1,43 @@
+{% extends 'shablonCss12.html' %}
+{% load static %}
+
+{% block title %}{{post.NewsName}}{% endblock %}
+
+{% block content %}
+<header>
+  <img src="{% static 'avatarClubs/' %}{{ post.ClubName }}.png" alt="Логотип" class="logo">
+  <div>
+      <h1 class="club-name">{{post.ClubName}}</h1>
+  </div>
+</header>
+
+<section class="container my-5">
+  <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center">
+      <!-- Карточка события -->
+      <div class="col">
+          <div class="card h-100 text-center shadow-lg p-4 rounded-3 border-0">
+            <h4 class="card-title fw-bold">{{post.NewsName}}</h4>
+              <img src="{{ post.ImgNews.url }}"  class="event-image mx-auto" alt="News Logo">
+              <div class="card-body">
+                  <div class="description-box">
+                      
+                      <p class="card-text">{{post.TextNews}}</p>
+                      <small class="text-muted">Дата и время: {{post.Date}}</small>
+                  </div>
+                  <div class="mt-4">
+                    {% if post.Date_Stop > date_now %}
+                    <a href="{% url 'register' post.id%}"><button class="btn btn-primary btn-lg w-100">Зарегистрироваться</button></a>
+                    {% else %}
+                    <h6 id="Register_stop">Регистрация закрыта</h6>
+                    {% endif %}
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}
+
+
